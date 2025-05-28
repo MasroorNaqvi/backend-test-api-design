@@ -42,7 +42,6 @@ export class FacebookService {
     }
   }
   private async getRepo(repoName: string) {
-    console.log(repoName, '------');
     const url = `https://api.github.com/repos/facebook/${repoName}`;
 
     try {
@@ -93,7 +92,6 @@ export class FacebookService {
     repoName: string,
     login: string,
   ): Promise<any | null> {
-    console.log(repoName, '------------', login);
     const url = `https://api.github.com/repos/facebook/${repoName}/commits?author=${login}&per_page=1&sort=author-date&order=asc`;
     try {
       const response = await lastValueFrom(
@@ -162,7 +160,7 @@ export class FacebookService {
     if (!this.ContributerCache.has(repoName) || refetch) {
       const contributors = await this.getContributors(repoName);
 
-      for (const contributor of contributors.slice(0, 12)) {
+      for (const contributor of contributors) {
         const login = contributor.login;
         if (seen.has(login)) continue;
 
